@@ -68,8 +68,8 @@ WHERE
 GROUP BY rok
 ORDER BY rok ASC;
 
---Skript k otázce číslo 5:
-CREATE VIEW t_Lubos_Vavruska_project_SQL_secondary_final AS
+--Skript k otázce číslo 5 (pro Českou republiku):
+CREATE VIEW t_Lubos_Vavruska_project_SQL_primary_final AS
 SELECT 
     AVG(cp.value) AS prumerna_mzda,
     SUM(czpr.value) AS nakupni_kosik,
@@ -88,6 +88,23 @@ WHERE
     AND e.country = 'Czech Republic'
 GROUP BY rok
 ORDER BY rok ASC;
+
+--Pomocná tabulka s informacemi o evropských státech a vývoji HDP:
+CREATE VIEW t_Lubos_Vavruska_project_SQL_secondary_final AS
+SELECT 
+    country, 
+    e.year,
+    GDP
+FROM economies e
+WHERE 
+    GDP IS NOT NULL 
+    AND country LIKE '%eur%'
+GROUP BY 
+    country,
+    e.year
+ORDER BY 
+    e.year ASC,
+    country ASC;
 
 
 
